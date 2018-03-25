@@ -18,8 +18,7 @@ challenge_dataset.txt
 ```python
   x = df.iloc[:,:-1]
   y = df.iloc[:,-1]
-```
-```python
+
   pt_y, pt_x = pt.dmatrices("y ~ x", df)
   res = np.linalg.lstsq(pt_x, pt_y)
   b = res[0].ravel()
