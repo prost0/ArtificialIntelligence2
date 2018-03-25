@@ -72,7 +72,7 @@ dfn = (df - df.mean()) / (df.max() - df.min())
 ax = plt.subplot()
 scatter_matrix(df, alpha=0.05, figsize=(10, 10), marker ='x')
 ```
-![](pngs/ai13scatter_matrix.png)
+![](pngs/ai13scatterMatrix.png)
 
 Построим линейную зависимость Close от Open:
 ```python
@@ -96,7 +96,7 @@ axis_x = np.linspace(-1, 1, 100)
 f = b0[0] + b0[1] * axis_x 
 ax.plot(axis_x, f, color = 'red')
 ```
-![](pngs/ai13closeOpen.png)
+![](pngs/ai3closeOpen.png)
 
 Построим график линейной зависимости Close от Date:
 ```python
