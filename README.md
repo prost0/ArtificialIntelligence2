@@ -52,7 +52,20 @@ plt.plot(x_test, y_test, 'go', color = 'blue')
 f2 = b[0] + b[1] * x_test
 plt.plot(x_test, f2, color = 'red')
 ```
+Проверим на переобучение:
+```python
+pt_y, pt_x = pt.dmatrices("y_test ~ x_test", test)
+res = np.linalg.lstsq(pt_x, pt_y)
+b = res[0].ravel()
+
+x2 = np.linspace(-1, 4, 100)
+f1 = b[0] + b[1] * x2 
+plt.plot(x2, f1, color = 'green')
+```
+На верхнем графике: красная линия - полученная по тестовой выборке линия, синие точки - точки обучающей выборки; на нижнем: красная линия - полученная по тестовой выборке линия, синие точки - точки тестовой выбоки, зеленая линия - истинная линия для тестовой выборки.
+
 ![](pngs/ai11two.png)
+
 
 global_co2.csv
 ==
@@ -99,6 +112,7 @@ res = np.linalg.lstsq(pt_x, pt_y)
 b0 = res[0].ravel()
 print ("Close ~ Open ", b0))
 ```
+
 
 Построим график:
 ```python
