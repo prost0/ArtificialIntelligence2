@@ -71,6 +71,7 @@ plt.plot(x2, f1, color = 'green')
 Линии почти параллельны, значит возможно некоторое переобучение.
 
 Чтобы поэксперементировать с методами обработки ситуации с неопределенностью значения признака, рассмотрим
+
 global_co2.csv
 ==
 Загрузим датасет и стандартизуем данные:
@@ -78,9 +79,52 @@ global_co2.csv
 df = pd.read_csv(r"global_co2.csv")
 df = (df - df.mean()) / df.std()
 ```
+Построим scatter matrix для загруженных данных:
+```python
+scatter_matrix(df, alpha=0.05, figsize=(10, 10), marker ='x')
+```
 
-Будем предсказать параметр ‘Per capita’. Т.к. в этом параметре есть NA, то необходимо сначала отчистить данные
+Будем предсказать параметр "Per capita" по "Year". В "Per capita" есть пропуски, сначала  попробуем вычеркнуть строки с ними:
+```python
+df2 = df.dropna(axis=0)
+x2 = df2.iloc[:,:-1]
+y2 = df2.iloc[:,-1]
+```
+Построим регрессию:
+```python
+pt_y, pt_x = pt.dmatrices("PerCapita ~ Year", df2)
+res = np.linalg.lstsq(pt_x, pt_y)
+b0 = res[0].ravel()
+print ("Cross off rows with NAN (PC ~ Year) ", b0)
+```
+Отобразим результаты:
+```python
+ax = plt.subplot()
+ax.plot(df2['SolidFuel'], df2['PerCapita'], 'go', color = 'blue')#x[x]
+asix_x = np.linspace(0, 4, 100)
+f = b0[0] + b0[1] * asix_x 
+ax.plot(asix_x, f, color = 'red')
+```
+![](pngs/ai12year2.png)
 
+Теперь проделаем ту же работу, но попробуем заполнить пропуски средними значениями признака:
+```python
+df3 = df.fillna(df['PerCapita'].mean())
+x3 = df3.iloc[:,:-1]
+y3 = df3.iloc[:,-1]
+
+pt_y, pt_x = pt.dmatrices("PerCapita ~ Year", df3)
+res = np.linalg.lstsq(pt_x, pt_y)
+b0 = res[0].ravel()
+print ("Fill NAN with median  (PC ~ Year) ", b0)
+
+ax = plt.subplot()
+ax.plot(df3['SolidFuel'], df3['PerCapita'], 'go', color = 'blue')#x[x]
+asix_x = np.linspace(0, 4, 100)
+f = b0[0] + b0[1] * asix_x 
+ax.plot(asix_x, f, color = 'red')
+```
+![](pngs/ai12year3.png)
 
 WIKI/GOOGL
 ==
