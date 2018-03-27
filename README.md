@@ -177,15 +177,6 @@ res = np.linalg.lstsq(pt_x, pt_y)
 b0 = res[0].ravel()
 print ("Close ~ Open ", b0))
 ```
-Построим линейную зависимость Close от Date:
-```python
-pt_y, pt_x = pt.dmatrices("Close ~ Open", dfn)
-res = np.linalg.lstsq(pt_x, pt_y)
-b0 = res[0].ravel()
-print ("Close ~ Open ", b0))
-```
-
-
 Построим график:
 ```python
 ax.plot(dfn['Close'], dfn['Open'], 'go', color = 'blue')#x[x]
@@ -194,6 +185,15 @@ f = b0[0] + b0[1] * axis_x
 ax.plot(axis_x, f, color = 'red')
 ```
 ![](pngs/ai3closeOpen.png)
+Видно что признаки сильно зависят друг от друга.
+
+Построим линейную зависимость Close от Date:
+```python
+pt_y, pt_x = pt.dmatrices("Close ~ Open", dfn)
+res = np.linalg.lstsq(pt_x, pt_y)
+b0 = res[0].ravel()
+print ("Close ~ Open ", b0))
+```
 
 Построим график линейной зависимости Close от Date:
 ```python
@@ -216,6 +216,8 @@ res = np.linalg.lstsq(pt_x, pt_y)
 b1 = res[0].ravel()
 print ("Adj. Volume ~ <Others> ", b1)
 ```
+Получим:
+
 Adj. Volume ~ <Others>  [  3.79854903e-18   2.55654872e-16  -4.56014756e-15   2.82719269e-15
    8.51217968e-15  -6.61824111e-15   1.00000000e+00   1.66910489e-17
    1.44795200e-16  -5.41382802e-16   6.28728840e-16  -5.14155775e-16]
