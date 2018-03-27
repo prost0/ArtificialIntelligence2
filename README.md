@@ -1,6 +1,6 @@
 Вариант III (Challenge Dataset)
 ==
-Загрузка необходимых пакетов
+Загрузим необходимые пакеты:
 ```python
 import numpy as np
 import pandas as pd
