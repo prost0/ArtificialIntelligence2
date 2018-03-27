@@ -21,7 +21,7 @@ df = pd.read_csv(r"challenge_dataset.txt")
 ```
 Стандартизуем данные:
 ```python
-df = pd.read_csv(r"challenge_dataset.txt")
+df = (df - df.mean()) / df.std()
 ```
 Разделим данные на обучающую(80%) и тестовую(20%) выборки:
 ```python
@@ -125,6 +125,26 @@ f = b0[0] + b0[1] * asix_x
 ax.plot(asix_x, f, color = 'red')
 ```
 ![](pngs/ai12year3.png)
+
+Как видно, для нашего набора данных лучше вычеркивать строки с неопределенными значениями, чем заполнять средним значением. Так получается, потому что пропуски есть только в начальной части данных (для небольших Year).
+
+Построим вектор коэфициентов линейной регрессии PerCapita от всех остальных 
+```python
+pt_y, pt_x = pt.dmatrices("y2 ~ x2", df2)
+res = np.linalg.lstsq(pt_x, pt_y)
+b2 = res[0].ravel()
+print ("Cross off rows with NAN ", b2)
+
+pt_y, pt_x = pt.dmatrices("y3 ~ x3", df3)
+res = np.linalg.lstsq(pt_x, pt_y)
+b3 = res[0].ravel()
+print ("Fill NAN with median ", b3)
+```
+Получим
+Cross off rows with NAN  [ -4.70354648e+00   1.85368108e+00   3.64128788e+01  -6.66053900e+00
+  -1.45951858e+01  -1.28346405e+01  -1.81101647e+00   1.96421936e-03]
+Fill NAN with median  [ -4.08659474e-16   7.02343534e-02  -1.47997739e+01  -3.24039292e-01
+   9.11631050e+00   4.88094615e+00   2.15695575e+00  -6.66431764e-01]
 
 WIKI/GOOGL
 ==
