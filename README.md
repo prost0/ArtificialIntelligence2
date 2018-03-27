@@ -83,7 +83,7 @@ df = (df - df.mean()) / df.std()
 ```python
 scatter_matrix(df, alpha=0.05, figsize=(10, 10), marker ='x')
 ```
-![](pngs/ai12year2scatterMatrix.png)
+![](pngs/ai2scatterMatrix.png)
 
 Будем предсказать параметр "Per capita" по "Year". В "Per capita" есть пропуски, сначала  попробуем вычеркнуть строки с ними:
 ```python
