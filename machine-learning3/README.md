@@ -11,8 +11,7 @@ import matplotlib.pyplot as plt
 
 df = pd.read_csv(r"challenge_dataset.txt")
 ```
-challenge_dataset.txt
-==
+
 Далее приведем данные к стандартному виду:
 ```python
 df = (df - df.mean()) / df.std()
